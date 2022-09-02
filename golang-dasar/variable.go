@@ -18,4 +18,11 @@ func main() {
 	fmt.Println(namalengkap)
 
 	// Deklarasi multiple variable
+	var (
+		firstname = "syarif"
+		lastname  = "Hidayatulloh"
+	)
+
+	fmt.Println(firstname)
+	fmt.Println(lastname)
 }

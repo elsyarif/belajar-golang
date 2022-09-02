@@ -13,7 +13,7 @@ func main() {
 	fmt.Println(namalengkap)
 
 	// menghitung jumlah karakter string
-	fmt.Println(len(nama))
+	fmt.Println("lenth ", len(nama))
 
 	// Mengambil karakter pada posisi yang ditentukan
 	fmt.Println(namalengkap[2])
