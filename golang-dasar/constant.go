@@ -12,7 +12,7 @@ func main() {
 	// declarasi multiple constant
 	const (
 		fistname string = "Syarif"
-		age             = 29
+		age      int16  = 29
 	)
 
 	fmt.Println(fistname)
