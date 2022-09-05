@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	// slice adalah potongan data dari array
@@ -28,4 +30,39 @@ func main() {
 	append(slice, data) //membuat slice baru dengan menambahkan data ke posisi terakhir slic, jika kapasitas sudah penuh, maka akan membuat array baru
 	make([]TypeData, length, capacity)
 	*/
+
+	days := [...]string{"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"}
+	daySlice1 := days[5:]
+	daySlice1[0] = "Sabtu new"
+	daySlice1[1] = "Minggu new"
+
+	fmt.Println(days)
+
+	daySlice2 := append(daySlice1, "Libur baru") // menambahkan data baru di posisi terakhir
+	daySlice2[0] = "Ups"                         // menambahkan data pada index ke 0
+	fmt.Println(daySlice2)
+	fmt.Println(days)
+
+	// kode membuat slice dengan menggukanan fungsi make
+	s := make([]string, 4)
+
+	s[0] = "a"
+	s[1] = "b"
+	fmt.Println("slice :", s)
+	fmt.Println("Len slice :", len(s))
+	fmt.Println("Cap slice :", cap(s))
+
+	//copy slice dari slice yang lain
+	fromSlice := days[:]
+	toSlice := make([]string, len(fromSlice), cap(fromSlice)) // membuat slice dengan panjang dari fromSLice dan capasitas fromSlice
+
+	copy(toSlice, fromSlice)
+	fmt.Println(toSlice)
+	//Note: perhatikan saat membuat array, jika salah mebuatnya bukan array yang dibuat melainkan slice
+	// perbedaan array dan slice
+	isArray := [...]int{1, 2, 4, 5, 6}
+	isSlice := []int{1, 2, 3, 4, 5, 6}
+
+	fmt.Println(isArray)
+	fmt.Println(isSlice)
 }
