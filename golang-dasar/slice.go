@@ -31,12 +31,14 @@ func main() {
 	make([]TypeData, length, capacity)
 	*/
 
-	days := [...]string{"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"}
+	days := [...]string{"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"} // array days
+	fmt.Println("days before :", days)
 	daySlice1 := days[5:]
 	daySlice1[0] = "Sabtu new"
 	daySlice1[1] = "Minggu new"
-
-	fmt.Println(days)
+	// hati-hati saat mengubah slice, karena akan merubah nilai array nya juga
+	fmt.Println("=================================")
+	fmt.Println("days :", days)
 
 	daySlice2 := append(daySlice1, "Libur baru") // menambahkan data baru di posisi terakhir
 	daySlice2[0] = "Ups"                         // menambahkan data pada index ke 0
@@ -57,8 +59,8 @@ func main() {
 	toSlice := make([]string, len(fromSlice), cap(fromSlice)) // membuat slice dengan panjang dari fromSLice dan capasitas fromSlice
 
 	copy(toSlice, fromSlice)
-	fmt.Println(toSlice)
-	//Note: perhatikan saat membuat array, jika salah mebuatnya bukan array yang dibuat melainkan slice
+	fmt.Println("copy slice: ", toSlice)
+	// Note: perhatikan saat membuat array, jika salah mebuatnya bukan array yang dibuat melainkan slice
 	// perbedaan array dan slice
 	isArray := [...]int{1, 2, 4, 5, 6}
 	isSlice := []int{1, 2, 3, 4, 5, 6}

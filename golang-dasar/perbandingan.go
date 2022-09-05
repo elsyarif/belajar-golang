@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	var nama1 = "syarif"
+	var nama1 = "Syarif"
 	var nama2 = "Syarif"
 
 	var result bool = nama1 == nama2

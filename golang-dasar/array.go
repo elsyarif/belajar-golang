@@ -3,6 +3,7 @@ package main
 import "fmt"
 
 func main() {
+	// array adalah type data yang berisikan tipe data yang sama
 	var names [3]string
 	names[0] = "syarif"
 	names[1] = "Hidayatulloh"

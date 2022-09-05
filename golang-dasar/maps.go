@@ -15,6 +15,7 @@ func main() {
 		"address": "cilegon",
 		"status":  "menikah",
 	}
+	person["title"] = "Programmer"
 
 	fmt.Println("maps :", person)               // menampikan semua data map
 	fmt.Println("Name :", person["name"])       // hanya menampikan nama
@@ -30,7 +31,7 @@ func main() {
 	product := make(map[string]any)
 	product["title"] = "Laptop MSI"
 	product["brand"] = "MSI"
-	product["pice"] = 1234
+	product["price"] = 1234
 
 	delete(product, "price")
 

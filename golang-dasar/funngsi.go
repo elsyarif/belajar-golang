@@ -12,14 +12,18 @@ func sayHello() {
 // Function dengan parameter
 // ketika parameter pada function, maka kita wajib memasukan data ke parameternya
 func sayHelloTo(name string, lastname string) {
-	fmt.Println("Hello, ", name, " ", lastname)
+	fmt.Println("Hello,", name, lastname)
 }
 
 // function return value
 // function bisa mengembalikan data
 // untuk mengembalikan data, kita harus menuliskan tipe
-
+func witHello(param string) string {
+	return param
+}
 func main() {
 	sayHello()
 	sayHelloTo("syarif", "Hidayatulloh")
+	param := witHello("param")
+	fmt.Println(param)
 }
