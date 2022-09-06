@@ -13,4 +13,13 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-.idea/
+
+# IDEs and editors
+/.idea
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

@@ -12,7 +12,7 @@ type HasName interface {
 	GetName() string
 }
 
-func sayHello(hasName HasName) {
+func sayHelo(hasName HasName) {
 	fmt.Println("Hello, ", hasName.GetName)
 }
 
@@ -55,12 +55,12 @@ func Ups() interface{} {
 }
 
 func main() {
-	fmt.Pritnln("=== Interface ===")
+	fmt.Println("=== Interface ===")
 
 	person := Person{Name: "Syarif"}
-	sayHello(person)
+	sayHelo(person)
 
-	fmt.Pritnln("=== Interface Kosong ===")
+	fmt.Println("=== Interface Kosong ===")
 	kosong := Ups()
 	fmt.Println(kosong)
 }
