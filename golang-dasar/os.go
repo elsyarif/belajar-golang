@@ -14,4 +14,10 @@ func main() {
 	name, _ := os.Hostname()
 
 	fmt.Println(name)
+
+	username := os.Getenv("username")
+	password := os.Getenv("password")
+
+	fmt.Println("username:", username)
+	fmt.Println(password)
 }
