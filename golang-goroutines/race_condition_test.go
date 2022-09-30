@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// hal ini berbahaya ketika melakukan manipulasi data variable yang sama dilakukan oleh
+// beberapa goroutine secara bersamaan, menyebabakan masalah race condition
 func TestRaceCondition(t *testing.T) {
 	x := 0
 

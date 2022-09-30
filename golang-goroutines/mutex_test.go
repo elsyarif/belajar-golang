@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// untuk mengatasi malsah race condition, dengan struct sync.Mutex
 // kapan menggunakan mutex : ketika sebuah variable melakukan sharing yang diakaes beberapa goroutines
 // untuk menangani race condition, lakukan locking, dan unlocing
 func TestMutex(t *testing.T) {
@@ -26,6 +27,9 @@ func TestMutex(t *testing.T) {
 	fmt.Println("Counter :", x)
 }
 
+// kadang ada kasus dimana ingin melakukan locking tidak hanya pada proses mengubah data,
+// tapi juga membaca data, untuk melakukannya menggunakan RWMutex memiliki dua jenis lock
+// lock untuk Read, dan lock untuk Write
 type BankAcount struct {
 	RWMutex sync.RWMutex
 	Balance int
@@ -62,3 +66,56 @@ func TestRWMutex(t *testing.T) {
 }
 
 // error deadlock
+// hati hati saat membuat aplikasi yang parallel atau councurent, masalah yang sering kita hadapi adalah deadlock
+// deadlock dimana sebuah proses goroutine saling menunggu lock sehingga tidak ada satupun goroutine yang bisa berjalan
+
+type UserBalance struct {
+	sync.Mutex
+	Name    string
+	Balance int
+}
+
+func (user *UserBalance) Lock() {
+	user.Mutex.Lock()
+}
+
+func (user *UserBalance) Unlock() {
+	user.Mutex.Unlock()
+}
+
+func (user *UserBalance) Change(amount int) {
+	user.Balance = user.Balance + amount
+}
+
+func Transfer(user1 *UserBalance, user2 *UserBalance, amount int) {
+	user1.Lock()
+	fmt.Println("Lock", user1.Name)
+	user1.Change(amount)
+
+	time.Sleep(1 * time.Second)
+
+	user2.Lock()
+	fmt.Println("Lock", user2.Name)
+	user2.Change(amount)
+
+	time.Sleep(1 * time.Second)
+
+	user1.Unlock()
+	user2.Unlock()
+}
+
+func TestDeadlock(t *testing.T) {
+	user1 := UserBalance{
+		Name: "Syarif",
+	}
+
+	user2 := UserBalance{
+		Name: "Hidayatulloh",
+	}
+
+	go Transfer(&user1, &user2, 1000)
+	go Transfer(&user2, &user1, 1000)
+
+	time.Sleep(5 * time.Second)
+
+}

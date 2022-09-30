@@ -7,6 +7,8 @@ import (
 	"time"
 )
 
+// channel adalah tempat komunikasi secara synchronous yang dilakukan oleh goroutine
+// pengirim dan peneriama goroutine adalah goroutine yang berbeda
 func TestCreateChannel(t *testing.T) {
 	channel := make(chan string)
 	defer close(channel)
