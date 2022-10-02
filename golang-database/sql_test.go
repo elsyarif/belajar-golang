@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -175,4 +176,96 @@ func TestExecSqlParameter(t *testing.T) {
 	}
 
 	fmt.Println("Success insert new user")
+}
+
+// TODO: auto increament
+func TestAutoIncrement(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+
+	email := "id.syarif@gmail.com"
+	comment := "syarif"
+
+	script := "INSERT INTO comments(email, comment) VALUES(?, ?)"
+	result, err := db.ExecContext(ctx, script, email, comment)
+	if err != nil {
+		panic(err)
+	}
+	insertId, err := result.LastInsertId() // fungsi untuk mendapatkan last insert id
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Success insert new comment with id:", insertId)
+}
+
+// TODO: Prepare statement
+func TestPrepareStatement(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+	script := "INSERT INTO comments(email, comment) VALUES(?, ?)"
+
+	statement, err := db.PrepareContext(ctx, script)
+	if err != nil {
+		panic(err.Error())
+	}
+	defer statement.Close()
+
+	for i := 0; i < 10; i++ {
+		email := "syarif" + strconv.Itoa(i) + "@gmail.com"
+		comment := "write comments to " + strconv.Itoa(i)
+
+		result, err := statement.ExecContext(ctx, email, comment)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		id, err := result.LastInsertId()
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println("Comments id", id)
+	}
+}
+
+//TODO: database transaction
+func TestTransaction(t *testing.T) {
+	db := GetConnection()
+	defer db.Close()
+
+	ctx := context.Background()
+	tx, err := db.Begin()
+	if err != nil {
+		panic(err)
+	}
+
+	script := "INSERT INTO comments(email, comment) VALUES(?, ?)"
+	// transaction begin
+	for i := 0; i < 10; i++ {
+		email := "syarif" + strconv.Itoa(i) + "@gmail.com"
+		comment := "write comments to " + strconv.Itoa(i)
+
+		result, err := tx.ExecContext(ctx, script, email, comment)
+
+		if err != nil {
+			panic(err.Error())
+		}
+
+		id, err := result.LastInsertId()
+		if err != nil {
+			panic(err)
+		}
+
+		fmt.Println("Comments id", id)
+	}
+	err = tx.Rollback()
+	if err != nil {
+		panic(err.Error())
+	}
 }
