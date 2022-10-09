@@ -36,6 +36,10 @@ func TestServeMux(t *testing.T) {
 		fmt.Fprint(writer, "Images ")
 	})
 
+	mux.HandleFunc("/images/thumbnail", func(writer http.ResponseWriter, request *http.Request) {
+		fmt.Fprint(writer, "thumbnail")
+	})
+
 	server := http.Server{
 		Addr:    "localhost:8000",
 		Handler: mux,
@@ -49,7 +53,8 @@ func TestServeMux(t *testing.T) {
 
 func TestReques(t *testing.T) {
 	var handler http.HandlerFunc = func(writer http.ResponseWriter, request *http.Request) {
-		fmt.Fprint(writer, request.Method)
+		fmt.Fprintln(writer, request.Method)
+		fmt.Fprintln(writer, request.RequestURI)
 	}
 
 	server := http.Server{

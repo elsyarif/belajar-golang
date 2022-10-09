@@ -7,7 +7,7 @@ import (
 
 func TestServer(t *testing.T) {
 	server := http.Server{
-		Addr: ":8080",
+		Addr: "localhost:8090",
 	}
 
 	err := server.ListenAndServe()
