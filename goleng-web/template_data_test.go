@@ -14,6 +14,9 @@ func TemplateDataMap(writer http.ResponseWriter, request *http.Request) {
 	t.ExecuteTemplate(writer, "name.gohtml", map[string]interface{}{
 		"Title": "Template Data Map",
 		"Name":  "Syarif",
+		"Address": map[string]interface{}{
+			"Street": "Alamat Jalan map",
+		},
 	})
 }
 
@@ -27,9 +30,14 @@ func TestTemplateDataMap(t *testing.T) {
 	fmt.Println(string(body))
 }
 
+type Address struct {
+	Street string
+}
+
 type Page struct {
-	Title string
-	Name  string
+	Title   string
+	Name    string
+	Address Address
 }
 
 func TemplateDataStruct(writer http.ResponseWriter, request *http.Request) {
@@ -37,6 +45,9 @@ func TemplateDataStruct(writer http.ResponseWriter, request *http.Request) {
 	t.ExecuteTemplate(writer, "name.gohtml", Page{
 		Title: "Tamplate Data struct",
 		Name:  "Syarif",
+		Address: Address{
+			Street: "Jl. Pabean",
+		},
 	})
 }
 
