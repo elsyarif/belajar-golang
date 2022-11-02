@@ -1,0 +1,29 @@
+### Get all categories
+GET http://localhost:4000/api/categories
+Accept: application/json
+
+### Create New categories
+POST http://localhost:4000/api/categories
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name" : ""
+}
+
+### Get Category by Id
+GET http://localhost:4000/api/categories/10
+Accept: application/json
+
+### Put Category by Id
+PUT http://localhost:4000/api/categories/3
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name" : ""
+}
+
+### Delete Category by Id
+DELETE http://localhost:4000/api/categories/40
+Accept: application/json
