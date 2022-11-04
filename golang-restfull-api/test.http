@@ -1,14 +1,16 @@
 ### Get all categories
 GET http://localhost:4000/api/categories
+x-api-key: RAHASIA
 Accept: application/json
 
 ### Create New categories
 POST http://localhost:4000/api/categories
+x-api-key: RAHASIA
 Accept: application/json
 Content-Type: application/json
 
 {
-  "name" : ""
+  "name" : "Food"
 }
 
 ### Get Category by Id
@@ -25,5 +27,5 @@ Content-Type: application/json
 }
 
 ### Delete Category by Id
-DELETE http://localhost:4000/api/categories/40
+DELETE http://localhost:4000/api/categories/4
 Accept: application/json

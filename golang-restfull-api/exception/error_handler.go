@@ -1,20 +1,42 @@
 package exception
 
 import (
-	"fmt"
+	"github.com/go-playground/validator"
 	"golang-restfull-api/helper"
 	"golang-restfull-api/model/web"
 	"net/http"
 )
 
 func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interface{}) {
-	fmt.Println("Error Handler call")
 
 	if notFoundError(writer, request, err) {
 		return
 	}
 
+	if validationErrors(writer, request, err) {
+		return
+	}
 	internalServerError(writer, request, err)
+}
+
+func validationErrors(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
+	execption, ok := err.(validator.ValidationErrors)
+
+	if ok {
+		writer.Header().Set("Content-Type", "application/json")
+		writer.WriteHeader(http.StatusBadRequest)
+
+		webResponse := web.WebResponse{
+			Code:   http.StatusBadRequest,
+			Status: "BAD REQUEST",
+			Data:   execption.Error(),
+		}
+
+		helper.WriteToResponseBody(writer, webResponse)
+		return true
+	} else {
+		return false
+	}
 }
 
 func notFoundError(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
@@ -25,7 +47,7 @@ func notFoundError(writer http.ResponseWriter, request *http.Request, err interf
 
 		webResponse := web.WebResponse{
 			Code:   http.StatusNotFound,
-			Status: "NOT FOUNF",
+			Status: "NOT FOUND",
 			Data:   execption.Error,
 		}
 
